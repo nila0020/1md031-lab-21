@@ -1,4 +1,78 @@
+/*Body and Header*/
 body {
     font-family: "Times New Roman", serif;
     font-size: 12pt;
+}
+#header {
+    margin-left: 50px;
+    margin-right: 50px;
+    overflow: hidden;
+    height: 370px;
+}
+#header img {
+   opacity: 0.45;
+    width: 100%;
+    height: auto;
+}
+#header h1 {
+    position: absolute;
+    margin-top: -330px;
+    padding-left: 310px;
+    font-size: 80pt;
+    text-align: center;
+    color: gold;
+    text-shadow: 4px 3px black;
+}
+
+/*Food content*/
+.gluten {
+    font-weight: bold;
+}
+.lactos {
+    font-weight: bold;
+}
+.vegan {
+    font-weight: bold;
+}
+
+/*ID:s*/
+#burger {
+    color: white;
+    background-color: black;
+    border: 2px dashed white;
+    padding-left: 10px;
+}
+#customer {
+    border: 2px dashed black;
+    padding-left: 10px;
+    margin-top: 5px;
+}
+
+/*Buttons and selectors*/
+button {
+    margin-left: 50px;
+    margin-top: 20px;
+    background-color: black;
+}
+button:hover {
+    background-color: gold;
+    cursor: pointer;
+}
+select:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
+/*Structure and format*/
+section {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: 20% 20% 20%;
+}
+.wrapper h3 {
+    text-align: center;
+    font-size: 1.5em;
 }

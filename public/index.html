@@ -5,61 +5,63 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-
-    <header>
-        <h1>Welcome to The Burger Joint</h1>
+<body >
+    <header id="header">
+        <img src="img/burger-joint.jpg" alt="The Burger Joint"/>
+        <h1>Welcome to <br> The Burger Joint</h1>
     </header>
-    <main>
-        <section>
+    <main >
+        <section id="burger">
             <header>
-                <h2>Select burger</h2>
+                <h2>Our burger selection</h2>
             </header>
-
-            <div style="float:left">
-            <dt>
-                <header><h3>Good Burger</h3></header>
-                <img src="img/Good_burger.jpg" height="190" width="240" alt="Good Burger"
-                     title="Good Burger" />
-            </dt>
-            <dd>
-                <ul>
-                    <li>Gluten</li>
-                    <li>Lactose</li>
-                </ul>
-            </dd>
-            </div>
-            <div style="float:left; margin-left:40px">
-            <dt>
-                <header><h3>Fire Burger</h3></header>
-                <img src="img/Fire_burger.jpg" height="190" width="240" alt="Fire Burger" title="Fire Burger"/>
-            </dt>
-            <dd>
-                <ul>
-                    <li>Gluten</li>
-                    <li>Lactose</li>
-                </ul>
-            </dd>
-            </div>
-            <div style="float:left; margin-left:40px">
-            <dt>
-                <header><h3>Vegan Burger</h3></header>
-                <img src="img/Vegan_burger.jpg" height="190" width="240" alt="Vegan Burger" title="Vegan Burger"/>
-            </dt>
-            <dd>
-                <ul>
-                    <li>Gluten</li>
-                    <li>Vegan</li>
-                </ul>
-            </dd>
+            Select your burgers:
+            <div class="wrapper">
+                <div  class="box a">
+                <dt>
+                    <header><h3>Good Burger</h3></header>
+                    <img src="img/Good_burger.jpg" height="190" width="240" alt="Good Burger"
+                         title="Good Burger" />
+                </dt>
+                <dd>
+                    <ul>
+                        <li>Contains <span class="gluten">gluten</span></li>
+                        <li>Contains <span class="lactos">lactose</span></li>
+                    </ul>
+                </dd>
+                </div>
+                <div class="box b">
+                <dt>
+                    <header><h3>Fire Burger</h3></header>
+                    <img src="img/Fire_burger.jpg" height="190" width="240" alt="Fire Burger" title="Fire Burger"/>
+                </dt>
+                <dd>
+                    <ul>
+                        <li>Contains <span class="gluten">gluten</span></li>
+                        <li>Contains <span class="lactos">lactose</span></li>
+                    </ul>
+                </dd>
+                </div>
+                <div class="box c">
+                <dt>
+                    <header><h3>Vegan Burger</h3></header>
+                    <img src="img/Vegan_burger.jpg" height="190" width="240" alt="Vegan Burger" title="Vegan Burger"/>
+                </dt>
+                <dd>
+                    <ul>
+                        <li>Contains <span class="gluten">gluten</span></li>
+                        <li><span class="vegan">Vegan</span></li>
+                    </ul>
+                </dd>
+                </div>
             </div>
         </section>
-        <section style="clear:left">
+        <section id="customer" style="clear:left">
             <header>
                 <h2>Customer information</h2>
             </header>
             This is where you provide necessary information
-            <section id="contact">
+            <div id="contact">
                 <header><h3>Delivery information:</h3></header>
                <form>
                    <p>
@@ -105,13 +107,11 @@
                        <input type="radio" id="undiclosed" name="gender" value="undiclosed" checked>
                    </div>
                </form>
-                <div>
-                <button type="submit">
-                    <img src="img/Place_order_fixed.png" height="70" width="60"/>
-                </button>
-                </div>
-            </section>
+            </div>
         </section>
+        <button type="submit">
+        <img src="img/Place_order_fixed.png" height="70" width="60"/>
+        </button>
     </main>
     <footer>
         <hr>
