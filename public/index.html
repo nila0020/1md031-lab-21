@@ -1,122 +1,17 @@
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-    <title>The Burger Joint</title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body >
-    <header id="header">
-        <img src="img/burger-joint.jpg" alt="The Burger Joint"/>
-        <h1>Welcome to <br> The Burger Joint</h1>
-    </header>
-    <main >
-        <section id="burger">
-            <header>
-                <h2>Our burger selection</h2>
-            </header>
-            Select your burgers:
-            <div class="wrapper">
-                <div  class="box a">
-                <dt>
-                    <header><h3>Good Burger</h3></header>
-                    <img src="img/Good_burger.jpg" height="190" width="240" alt="Good Burger"
-                         title="Good Burger" />
-                </dt>
-                <dd>
-                    <ul>
-                        <li>Contains <span class="gluten">gluten</span></li>
-                        <li>Contains <span class="lactos">lactose</span></li>
-                    </ul>
-                </dd>
-                </div>
-                <div class="box b">
-                <dt>
-                    <header><h3>Fire Burger</h3></header>
-                    <img src="img/Fire_burger.jpg" height="190" width="240" alt="Fire Burger" title="Fire Burger"/>
-                </dt>
-                <dd>
-                    <ul>
-                        <li>Contains <span class="gluten">gluten</span></li>
-                        <li>Contains <span class="lactos">lactose</span></li>
-                    </ul>
-                </dd>
-                </div>
-                <div class="box c">
-                <dt>
-                    <header><h3>Vegan Burger</h3></header>
-                    <img src="img/Vegan_burger.jpg" height="190" width="240" alt="Vegan Burger" title="Vegan Burger"/>
-                </dt>
-                <dd>
-                    <ul>
-                        <li>Contains <span class="gluten">gluten</span></li>
-                        <li><span class="vegan">Vegan</span></li>
-                    </ul>
-                </dd>
-                </div>
-            </div>
-        </section>
-        <section id="customer" style="clear:left">
-            <header>
-                <h2>Customer information</h2>
-            </header>
-            This is where you provide necessary information
-            <div id="contact">
-                <header><h3>Delivery information:</h3></header>
-               <form>
-                   <p>
-                       <label for="Fullname">Full name</label><br>
-                       <input type="text" id="Fullname" name="Fullname" required="required" placeholder="First and Last name">
-                   </p>
-                   <p>
-                       <label for="Email">Email</label><br>
-                       <input type="email" id="Email" name="Email" required="required" placeholder="Email address">
-                   </p>
-                   <p>
-                       <label for="Street">Street</label><br>
-                       <input type="text" id="Street" name="Street" required="required" placeholder="Street name">
-                   </p>
-                   <p>
-                       <label for="House">House Nr</label><br>
-                       <input type="text" id="House" name="House" required="required" placeholder="House number">
-                   </p>
-                   <p>
-                       <label for="paymentmethod">Payment method</label><br>
-                       <select id="paymentmethod" name="pay_meth">
-                           <option selected="selected">Credit Card</option>
-                           <option>Swish</option>
-                           <option>Paypal</option>
-                           <option>American Express</option>
-                       </select>
-                   </p>
-                   <div>Gender</div>
-                   <div>
-                       <label for="male">Male</label>
-                       <input type="radio" id="male" name="gender" value="male">
-                   </div>
-                   <div>
-                       <label for="female">Female</label>
-                       <input type="radio" id="female" name="gender" value="female">
-                   </div>
-                   <div>
-                       <label for="non-binary">Non-binary</label>
-                       <input type="radio" id="non-binary" name="gender" value="non-binary">
-                   </div>
-                   <div>
-                       <label for="undiclosed">Undisclosed</label>
-                       <input type="radio" id="undiclosed" name="gender" value="undiclosed" checked>
-                   </div>
-               </form>
-            </div>
-        </section>
-        <button type="submit">
-        <img src="img/Place_order_fixed.png" height="70" width="60"/>
-        </button>
-    </main>
-    <footer>
-        <hr>
-        &copy; 2018 Hypothetical Burger Inc.
-    </footer>
-</body>
-
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>
