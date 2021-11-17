@@ -10,43 +10,12 @@
       </header>
       Select your burgers:
       <div class="wrapper">
-        <div  class="box a">
-          <dt>
-            <header><h3>Good Burger</h3></header>
-            <img src="img/Good_burger.jpg" height="190" width="240" alt="Good Burger"
-                 title="Good Burger" />
-          </dt>
-          <dd>
-            <ul>
-              <li>Contains <span class="gluten">gluten</span></li>
-              <li>Contains <span class="lactos">lactose</span></li>
-            </ul>
-          </dd>
-        </div>
-        <div class="box b">
-          <dt>
-            <header><h3>Fire Burger</h3></header>
-            <img src="img/Fire_burger.jpg" height="190" width="240" alt="Fire Burger" title="Fire Burger"/>
-          </dt>
-          <dd>
-            <ul>
-              <li>Contains <span class="gluten">gluten</span></li>
-              <li>Contains <span class="lactos">lactose</span></li>
-            </ul>
-          </dd>
-        </div>
-        <div class="box c">
-          <dt>
-            <header><h3>Vegan Burger</h3></header>
-            <img src="img/Vegan_burger.jpg" height="190" width="240" alt="Vegan Burger" title="Vegan Burger"/>
-          </dt>
-          <dd>
-            <ul>
-              <li>Contains <span class="gluten">gluten</span></li>
-              <li><span class="vegan">Vegan</span></li>
-            </ul>
-          </dd>
-        </div>
+      <Burger v-for="burger in burgers"
+              v-bind:burger="burger"
+              v-bind:key="burger.name"/>
+      </div>
+      <div id="map" v-on:click="addOrder">
+        click here
       </div>
     </section>
     <section id="customer" style="clear:left">
@@ -59,19 +28,19 @@
         <form>
           <p>
             <label for="Fullname">Full name</label><br>
-            <input type="text" id="Fullname" name="Fullname" required="required" placeholder="First and Last name">
+            <input type="text" id="Fullname" v-model="Fullname" required="required" placeholder="First and Last name"/>
           </p>
           <p>
             <label for="Email">Email</label><br>
-            <input type="email" id="Email" name="Email" required="required" placeholder="Email address">
+            <input type="email" id="Email" v-model="Email" required="required" placeholder="Email address">
           </p>
           <p>
             <label for="Street">Street</label><br>
-            <input type="text" id="Street" name="Street" required="required" placeholder="Street name">
+            <input type="text" id="Street" v-model="Street" required="required" placeholder="Street name">
           </p>
           <p>
             <label for="House">House Nr</label><br>
-            <input type="text" id="House" name="House" required="required" placeholder="House number">
+            <input type="text" id="House" v-model="House" required="required" placeholder="House number">
           </p>
           <p>
             <label for="paymentmethod">Payment method</label><br>
@@ -113,34 +82,36 @@
 </template>
 
 <script>
-//import Burger from '../components/Burger.vue'
+import Burger from '../components/Burger.vue'
+import Menu from "../assets/menu.json"
 import io from 'socket.io-client'
 
 const socket = io();
 
-function MenuItem (name, img, kcal, glut, lact) {
+/*function MenuItem (name, img, kcal, glut, lact) {
   this.name = name;
   this.img = img;
   this.kcal = kcal
   this.gluten = glut;
   this.lactose = lact;
-}
+}*/
 
-const burgers = [new MenuItem("Good burger", "pic", 300, true, true),
+const burgers = Menu /*[new MenuItem("Good burger", "pic", 300, true, true),
                 new MenuItem("Fire burger", "pic", 400, true, true),
-                new MenuItem("Vegan burger", "pic", 250, true, false) ]
+                new MenuItem("Vegan burger", "pic", 250, true, false) ]*/
 
 export default {
   name: 'Home',
   components: {
-    //Burger
+    Burger
   },
   data: function () {
     return {
-      burgers: burgers
-                /* [ {name: "small burger", kCal: 250},
-                 {name: "standard burger", kCal: 450},
-                 {name: "large burger", kCal: 850} ]*/
+      burgers: burgers,
+      Fullname: '',
+      Email: '',
+      Street: '',
+      House: ''
     }
   },
   methods: {
@@ -192,7 +163,7 @@ body {
 .gluten {
   font-weight: bold;
 }
-.lactos {
+.lactose {
   font-weight: bold;
 }
 .vegan {
@@ -239,5 +210,10 @@ section {
 .wrapper h3 {
   text-align: center;
   font-size: 1.5em;
+}
+#map {
+  width: 300px;
+  height: 300px;
+  background-color: red;
 }
 </style>

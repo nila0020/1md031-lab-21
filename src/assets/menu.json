@@ -1,0 +1,25 @@
+
+[
+  {
+    "name": "Good burger",
+    "img": "img/Good_burger.jpg",
+    "kCal": 300,
+    "gluten": true,
+    "lactose": true
+
+  },
+  {
+    "name": "Fire burger",
+    "img": "img/Fire_burger.jpg",
+    "kCal": 400,
+    "gluten": true,
+    "lactose": true
+  },
+  {
+    "name": "Vegan burger",
+    "img": "img/Vegan_burger.jpg",
+    "kCal": 250,
+    "gluten": true,
+    "lactose": false
+  }
+]
