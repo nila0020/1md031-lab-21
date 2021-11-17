@@ -44,8 +44,8 @@
           </p>
           <p>
             <label for="paymentmethod">Payment method</label><br>
-            <select id="paymentmethod" name="pay_meth">
-              <option selected="selected">Credit Card</option>
+            <select id="paymentmethod" v-model="pay_meth">
+              <option enabled value="">Credit Card</option>
               <option>Swish</option>
               <option>Paypal</option>
               <option>American Express</option>
@@ -54,24 +54,24 @@
           <div>Gender</div>
           <div>
             <label for="male">Male</label>
-            <input type="radio" id="male" name="gender" value="male">
+            <input type="radio" id="male" v-model="gender" value="male">
           </div>
           <div>
             <label for="female">Female</label>
-            <input type="radio" id="female" name="gender" value="female">
+            <input type="radio" id="female" v-model="gender" value="female">
           </div>
           <div>
             <label for="non-binary">Non-binary</label>
-            <input type="radio" id="non-binary" name="gender" value="non-binary">
+            <input type="radio" id="non-binary" v-model="gender" value="non-binary">
           </div>
           <div>
             <label for="undiclosed">Undisclosed</label>
-            <input type="radio" id="undiclosed" name="gender" value="undiclosed" checked>
+            <input type="radio" id="undiclosed" v-model="gender" value="undiclosed" checked>
           </div>
         </form>
       </div>
     </section>
-    <button type="submit">
+    <button v-on:click="submit">
       <img src="img/Place_order_fixed.png" height="70" width="60"/>
     </button>
   </main>
@@ -111,7 +111,9 @@ export default {
       Fullname: '',
       Email: '',
       Street: '',
-      House: ''
+      House: '',
+      gender: '',
+      pay_meth: ''
     }
   },
   methods: {
@@ -127,6 +129,10 @@ export default {
                                 orderItems: ["Beans", "Curry"]
                               }
                  );
+    },
+    submit: function () {
+      console.log(this.Fullname, this.Email, this.Street, this.House, this.pay_meth, this.gender)
+      this.Fullname = "", this.Email = "", this.House = "", this.Street = ""
     }
   }
 }
