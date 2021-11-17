@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ burger.name }} {{ burger.kCal }}
+    {{ burger.name }} {{burger.img}} {{ burger.kcal }} {{burger.gluten}} {{burger.lactose}}
   </div>
 </template>
 
