@@ -69,9 +69,9 @@
         </form>
       </div>
       <div class="mapwrapper">
-        <div id="map" v-on:click="addOrder" >
+        <div id="map" v-on:click="setLocation" >
           <div id="dots">
-            <div v-bind:style="{ left: location + 'px', top: location + 'px'}">
+            <div v-bind:style="{ left: location.x + 'px', top: location.y + 'px'}">
               T
             </div>
           </div>
@@ -133,27 +133,40 @@ export default {
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    addOrder: function (event) {
+    /*addOrder: function () {
       let offset = {x: event.currentTarget.getBoundingClientRect().left,
-                    y: event.currentTarget.getBoundingClientRect().top};
-      location.x = event.clientX - 10 - offset.x;
-      location.y = event.clientY - 10 - offset.y;
+        y: event.currentTarget.getBoundingClientRect().top};
       socket.emit("addOrder", { orderId: this.getOrderNumber(),
                                 details: { x: event.clientX - 10 - offset.x,
                                            y: event.clientY - 10 - offset.y },
                                 orderItems: ["Beans", "Curry"]
                               }
                  );
-    },
+    },*/
     submit: function () {
-      console.log(this.Fullname, this.Email, /*this.Street, this.House,*/ this.pay_meth, this.gender, this.orderedBurgers)
-      this.Fullname = "", this.Email = "" , /*this.House = "", this.Street = ""*/ this.pay_meth, this.gender, this.orderedBurgers
+      /*console.log(this.Fullname, this.Email, this.Street, this.House, this.pay_meth, this.gender, this.orderedBurgers, this.location.x, this.location.y)
+      this.Fullname = "", this.Email = "" , this.House = "", this.Street = "" this.pay_meth, this.gender, this.orderedBurgers*/
+      socket.emit("addOrder", { orderId: this.getOrderNumber(),
+            details: { x: this.location.x,
+                      y: this.location.y,
+                      Fullname: this.Fullname,
+                      Email: this.Email,
+                      pay_meth: this.pay_meth,
+                      gender: this.gender},
+            orderItems: ["Beans", "Curry"]
+          }
+      );
     },
+
     addToOrder: function (event) {
       this.orderedBurgers[event.name] = event.amount;
     },
-    setLocation: function() {
 
+    setLocation: function(event) {
+      let offset = {x: event.currentTarget.getBoundingClientRect().left,
+        y: event.currentTarget.getBoundingClientRect().top};
+      this.location.x = event.clientX - 10 - offset.x;
+      this.location.y = event.clientY - 10 - offset.y;
     }
   }
 }
