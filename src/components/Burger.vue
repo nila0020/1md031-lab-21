@@ -12,10 +12,10 @@
         <li v-if="burger.lactose"><span class="lactose" >Contains lactose</span></li>
       </ul>
     </dd>
-    <button v-on:click="addBurger">Add burger</button>
-    <button v-on:click="removeBurger">Remove burger</button>
+
+
     <br>
-    <p id="Amount">Amount: {{amountOrdered}}</p>
+    <p id="Amount">Amount: <button v-on:click="removeBurger">-</button> {{amountOrdered}} <button v-on:click="addBurger">+</button></p>
   </div>
 </template>
 
@@ -56,6 +56,7 @@ export default {
 }
 #Amount {
   text-align: center;
+  font-size: 1.5em;
 }
 button {
   background-color: gray;

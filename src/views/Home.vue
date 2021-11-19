@@ -20,7 +20,7 @@
       <header>
         <h2>Customer information</h2>
       </header>
-      This is where you provide necessary information
+      <p id="infoHeader">This is where you provide necessary information</p>
       <div id="contact">
         <header><h3>Delivery information:</h3></header>
         <form>
@@ -43,7 +43,7 @@
           <p>
             <label for="paymentmethod">Payment method</label><br>
             <select id="paymentmethod" v-model="pay_meth">
-              <option enabled value="">Credit Card</option>
+              <option selected value="">Credit Card</option>
               <option>Swish</option>
               <option>Paypal</option>
               <option>American Express</option>
@@ -144,16 +144,16 @@ export default {
                  );
     },*/
     submit: function () {
-      /*console.log(this.Fullname, this.Email, this.Street, this.House, this.pay_meth, this.gender, this.orderedBurgers, this.location.x, this.location.y)
-      this.Fullname = "", this.Email = "" , this.House = "", this.Street = "" this.pay_meth, this.gender, this.orderedBurgers*/
+      console.log(this.orderedBurgers)
       socket.emit("addOrder", { orderId: this.getOrderNumber(),
             details: { x: this.location.x,
                       y: this.location.y,
                       Fullname: this.Fullname,
                       Email: this.Email,
                       pay_meth: this.pay_meth,
-                      gender: this.gender},
-            orderItems: ["Beans", "Curry"]
+                      gender: this.gender
+            },
+            orderItem: this.orderedBurgers
           }
       );
     },
@@ -197,6 +197,9 @@ body {
   text-align: center;
   color: gold;
   text-shadow: 4px 3px black;
+}
+#infoHeader {
+  border: 2px solid black;
 }
 
 /*Food content*/
