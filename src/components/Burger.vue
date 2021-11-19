@@ -12,8 +12,8 @@
         <li v-if="burger.lactose"><span class="lactose" >Contains lactose</span></li>
       </ul>
     </dd>
-    <button v-on:click="Add_burger">Add burger</button>
-    <button v-on:click="Remove_burger">Remove burger</button>
+    <button v-on:click="addBurger">Add burger</button>
+    <button v-on:click="removeBurger">Remove burger</button>
     <br>
     <p id="Amount">Amount: {{amountOrdered}}</p>
   </div>
@@ -31,12 +31,18 @@ export default {
     }
   },
   methods: {
-    Add_burger: function () {
+    addBurger: function () {
       this.amountOrdered ++
+      this.$emit('orderedBurger', {name: this.burger.name,
+                                    amount: this.amountOrdered}
+      );
     },
-    Remove_burger: function () {
+    removeBurger: function () {
       if (this.amountOrdered > 0) {
         this.amountOrdered --
+        this.$emit('orderedBurger', {name: this.burger.name,
+          amount: this.amountOrdered}
+        )
       }
     }
   }

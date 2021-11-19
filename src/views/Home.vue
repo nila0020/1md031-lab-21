@@ -12,10 +12,8 @@
       <div class="wrapper">
       <Burger v-for="burger in burgers"
               v-bind:burger="burger"
-              v-bind:key="burger.name"/>
-      </div>
-      <div id="map" v-on:click="addOrder">
-        click here
+              v-bind:key="burger.name"
+              v-on:orderedBurger="addToOrder($event)"/>
       </div>
     </section>
     <section id="customer" style="clear:left">
@@ -34,14 +32,14 @@
             <label for="Email">Email</label><br>
             <input type="email" id="Email" v-model="Email" required="required" placeholder="Email address">
           </p>
-          <p>
+          <!--<p>
             <label for="Street">Street</label><br>
             <input type="text" id="Street" v-model="Street" required="required" placeholder="Street name">
           </p>
           <p>
             <label for="House">House Nr</label><br>
             <input type="text" id="House" v-model="House" required="required" placeholder="House number">
-          </p>
+          </p>-->
           <p>
             <label for="paymentmethod">Payment method</label><br>
             <select id="paymentmethod" v-model="pay_meth">
@@ -70,10 +68,21 @@
           </div>
         </form>
       </div>
+      <div class="mapwrapper">
+        <div id="map" v-on:click="addOrder" >
+          <div id="dots">
+            <div v-bind:style="{ left: location + 'px', top: location + 'px'}">
+              T
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-    <button v-on:click="submit">
-      <img src="img/Place_order_fixed.png" height="70" width="60"/>
-    </button>
+    <section >
+      <button v-on:click="submit">
+        <img src="img/Place_order_fixed.png" height="70" width="60"/>
+      </button>
+    </section>
   </main>
   <footer>
     <hr>
@@ -110,10 +119,14 @@ export default {
       burgers: burgers,
       Fullname: '',
       Email: '',
-      Street: '',
-      House: '',
+      /*Street: '',
+      House: '',*/
       gender: '',
-      pay_meth: ''
+      pay_meth: '',
+      orderedBurgers: {},
+      location: { x: 0,
+        y: 0
+      }
     }
   },
   methods: {
@@ -123,6 +136,8 @@ export default {
     addOrder: function (event) {
       let offset = {x: event.currentTarget.getBoundingClientRect().left,
                     y: event.currentTarget.getBoundingClientRect().top};
+      location.x = event.clientX - 10 - offset.x;
+      location.y = event.clientY - 10 - offset.y;
       socket.emit("addOrder", { orderId: this.getOrderNumber(),
                                 details: { x: event.clientX - 10 - offset.x,
                                            y: event.clientY - 10 - offset.y },
@@ -131,8 +146,14 @@ export default {
                  );
     },
     submit: function () {
-      console.log(this.Fullname, this.Email, this.Street, this.House, this.pay_meth, this.gender)
-      this.Fullname = "", this.Email = "", this.House = "", this.Street = ""
+      console.log(this.Fullname, this.Email, /*this.Street, this.House,*/ this.pay_meth, this.gender, this.orderedBurgers)
+      this.Fullname = "", this.Email = "" , /*this.House = "", this.Street = ""*/ this.pay_meth, this.gender, this.orderedBurgers
+    },
+    addToOrder: function (event) {
+      this.orderedBurgers[event.name] = event.amount;
+    },
+    setLocation: function() {
+
     }
   }
 }
@@ -188,10 +209,14 @@ body {
   padding-left: 10px;
   margin-top: 5px;
 }
+.mapwrapper{
+  max-height: 30em;
+  overflow: scroll;
+
+}
 
 /*Buttons and selectors*/
 button {
-  margin-left: 50px;
   margin-top: 20px;
   background-color: black;
 }
@@ -208,6 +233,7 @@ select:hover {
 section {
   margin-left: 50px;
   margin-right: 50px;
+
 }
 .wrapper {
   display: grid;
@@ -218,8 +244,18 @@ section {
   font-size: 1.5em;
 }
 #map {
-  width: 300px;
-  height: 300px;
-  background-color: red;
+  width: 1920px;
+  height: 1078px;
+  background: url("/img/polacks.jpg");
+
+}
+#dots {
+  position: absolute;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  width:20px;
+  height:20px;
+  text-align: center;
 }
 </style>
