@@ -26,10 +26,12 @@
         <form>
           <p>
             <label for="Fullname">Full name</label><br>
+            <span v-if="RequiredFormsFilled">** Please fill in required field:<br></span>
             <input type="text" id="Fullname" v-model="Fullname" required="required" placeholder="First and Last name"/>
           </p>
           <p>
             <label for="Email">Email</label><br>
+            <span v-if="RequiredFormsFilled">** Please fill in required field:<br></span>
             <input type="email" id="Email" v-model="Email" required="required" placeholder="Email address">
           </p>
           <!--<p>
@@ -43,7 +45,7 @@
           <p>
             <label for="paymentmethod">Payment method</label><br>
             <select id="paymentmethod" v-model="pay_meth">
-              <option selected value="">Credit Card</option>
+              <option  selected value="">Credit Card</option>
               <option>Swish</option>
               <option>Paypal</option>
               <option>American Express</option>
@@ -51,23 +53,25 @@
           </p>
           <div>Gender</div>
           <div>
-            <label for="male">Male</label>
-            <input type="radio" id="male" v-model="gender" value="male">
+            <label for="Male">Male</label>
+            <input type="radio" id="Male" v-model="gender" value="Male">
           </div>
           <div>
-            <label for="female">Female</label>
-            <input type="radio" id="female" v-model="gender" value="female">
+            <label for="Female">Female</label>
+            <input type="radio" id="Female" v-model="gender" value="Female">
           </div>
           <div>
-            <label for="non-binary">Non-binary</label>
-            <input type="radio" id="non-binary" v-model="gender" value="non-binary">
+            <label for="Non-binary">Non-binary</label>
+            <input type="radio" id="Non-binary" v-model="gender" value="Non-binary">
           </div>
           <div>
-            <label for="undiclosed">Undisclosed</label>
-            <input type="radio" id="undiclosed" v-model="gender" value="undiclosed" checked>
+            <label for="Undiclosed">Undisclosed</label>
+            <input type="radio" id="Undiclosed" v-model="gender" value="Undiclosed" checked>
           </div>
         </form>
       </div>
+      <header><h3>Choose a delivery location:</h3></header>
+      <span v-if="RequiredFormsFilled">** Please fill in required field:<br></span>
       <div class="mapwrapper">
         <div id="map" v-on:click="setLocation" >
           <div id="dots">
@@ -82,6 +86,16 @@
       <button v-on:click="submit">
         <img src="img/Place_order_fixed.png" height="70" width="60"/>
       </button>
+    </section>
+    <section id="receipt">
+      <header><h3>Your orders:</h3></header>
+      <div v-if="receipt">
+        {{orderedBurgers}}<br>
+        Name: {{Fullname}}<br>
+        Email: {{Email}}<br>
+        Gender: {{gender}}<br>
+        Pay method: {{pay_meth}}<br>
+      </div>
     </section>
   </main>
   <footer>
@@ -117,16 +131,18 @@ export default {
   data: function () {
     return {
       burgers: burgers,
-      Fullname: '',
-      Email: '',
+      Fullname: null,
+      Email: null,
       /*Street: '',
       House: '',*/
-      gender: '',
+      gender: 'undisclosed',
       pay_meth: '',
       orderedBurgers: {},
       location: { x: 0,
         y: 0
-      }
+      },
+      RequiredFormsFilled: false,
+      receipt: false
     }
   },
   methods: {
@@ -144,18 +160,27 @@ export default {
                  );
     },*/
     submit: function () {
-      console.log(this.orderedBurgers)
-      socket.emit("addOrder", { orderId: this.getOrderNumber(),
-            details: { x: this.location.x,
-                      y: this.location.y,
-                      Fullname: this.Fullname,
-                      Email: this.Email,
-                      pay_meth: this.pay_meth,
-                      gender: this.gender
-            },
-            orderItem: this.orderedBurgers
-          }
-      );
+      if (this.isRequiredFormsFilled()) {
+        socket.emit("addOrder", {
+              orderId: this.getOrderNumber(),
+              details: {
+                x: this.location.x,
+                y: this.location.y,
+                Fullname: this.Fullname,
+                Email: this.Email,
+                pay_meth: this.pay_meth,
+                gender: this.gender
+              },
+              orderItem: this.orderedBurgers
+            }
+        )
+        this.RequiredFormsFilled = false
+        this.receipt = true
+      }
+      else{
+        this.RequiredFormsFilled = true
+      }
+
     },
 
     addToOrder: function (event) {
@@ -167,6 +192,14 @@ export default {
         y: event.currentTarget.getBoundingClientRect().top};
       this.location.x = event.clientX - 10 - offset.x;
       this.location.y = event.clientY - 10 - offset.y;
+    },
+    isRequiredFormsFilled: function() {
+      if (this.Fullname == null || this.Email == null || this.location.x === 0 || this.location.y === 0) {
+        return false
+      }
+      else {
+        return true
+      }
     }
   }
 }
@@ -223,6 +256,12 @@ body {
 #customer {
   border: 2px dashed black;
   padding-left: 10px;
+  margin-top: 5px;
+}
+#receipt {
+  border: 2px solid black;
+  padding-left: 10px;
+  padding-bottom: 10px;
   margin-top: 5px;
 }
 .mapwrapper{
